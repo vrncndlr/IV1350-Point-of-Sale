@@ -1,9 +1,8 @@
 package main.se.kth.iv1350.pos.startup;
 
 import main.se.kth.iv1350.pos.view.View;
-import main.se.kth.iv1350.pos.controller.*;
+import main.se.kth.iv1350.pos.controller.Controller;
 import main.se.kth.iv1350.pos.integration.*;
-
 
 /**
  * Start the entire application, contains the <code>Main</code> method used to start the application.

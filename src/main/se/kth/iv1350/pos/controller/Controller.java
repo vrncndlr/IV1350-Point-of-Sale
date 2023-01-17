@@ -46,7 +46,6 @@ public class Controller {
      * Starts a new <code>Sale</code>.
      */
     public void startNewSale() {
-        System.out.println("Controller: new sale initialized");
         shoppingCart = new ShoppingCart(inventorySystem);
         sale = new Sale(shoppingCart, discountRegister);    
     }
@@ -57,13 +56,8 @@ public class Controller {
      * @return contains relevant info of states in the program.
      */
     public SaleStateDTO scanItem(ItemDTO itemRequest){
-        System.out.println("Controller: scanning item");
         ItemDTO scannedItem = shoppingCart.addItem(itemRequest);
         SaleStateDTO saleStateDTO =  sale.updateRunningTotal(scannedItem);
-        System.out.println("Last scanned item: " + scannedItem.getName());
-        System.out.println("Price: " + scannedItem.getPrice());
-        System.out.println("VAT: " + (scannedItem.calculateVAT()));
-        System.out.println();
         return saleStateDTO;
     }
 
@@ -79,15 +73,10 @@ public class Controller {
     public ReceiptDTO concludeSale(double paymentReceived) {
         ItemDTO noItem = new ItemDTO(0, 0, null, 0, 0);
         SaleStateDTO saleStateDTO = sale.updateRunningTotal(noItem);
-
         PaymentInfoDTO paymentInfoDTO = register.calculateChange(saleStateDTO, paymentReceived);
         salesLog.logSale(saleStateDTO, paymentInfoDTO);
-
         ReceiptDTO receipt = new ReceiptDTO(saleStateDTO,paymentInfoDTO);
-        System.out.println("Controller: ending sale.");
-
         return receipt;
     }
-
 
 }

@@ -1,5 +1,5 @@
 package main.se.kth.iv1350.pos.view;
-
+import java.util.Locale;
 import main.se.kth.iv1350.pos.DTO.ItemDTO;
 import main.se.kth.iv1350.pos.DTO.ReceiptDTO;
 import main.se.kth.iv1350.pos.DTO.SaleStateDTO;
@@ -33,12 +33,31 @@ public class View {
          double paymentReceived = 200;
          
          contr.startNewSale();
+         System.out.println("View: new sale initialized");
 
          System.out.println("---------DISPLAY---------");
          toBePrinted = contr.scanItem(firstItem);
+         ItemDTO item = toBePrinted.getScannedItemDTO();
+         System.out.println("Scanning item");
+         System.out.println("Last scanned item: " + item.getName());
+         System.out.println("Price: " + item.getPrice());
+         System.out.printf(Locale.US, "VAT: %.1f\n ", (item.getRateOfVAT())*item.getPrice() );
+         System.out.println();
          toBePrinted = contr.scanItem(secondItem);
+         item = toBePrinted.getScannedItemDTO();
+         System.out.println("Scanning item");
+         System.out.println("Last scanned item: " + toBePrinted.getScannedItemDTO().getName());
+         System.out.println("Price: " + toBePrinted.getScannedItemDTO().getPrice());
+         System.out.printf(Locale.US, "VAT: %.1f\n ", (item.getRateOfVAT())*item.getPrice() );
+         System.out.println();
          toBePrinted = contr.scanItem(thirdItem);
-
+         item = toBePrinted.getScannedItemDTO();
+         System.out.println("Scanning item");
+         System.out.println("Last scanned item: " + toBePrinted.getScannedItemDTO().getName());
+         System.out.println("Price: " + toBePrinted.getScannedItemDTO().getPrice());
+         System.out.printf(Locale.US, "VAT: %.1f\n ", (item.getRateOfVAT())*item.getPrice() );
+         System.out.println();
+         System.out.println("View: ending sale.");
          contr.requestDiscount(960620);
          receipt = contr.concludeSale(paymentReceived);
          receipt.printReceipt();
