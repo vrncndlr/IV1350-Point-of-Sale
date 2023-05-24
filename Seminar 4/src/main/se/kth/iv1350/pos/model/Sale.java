@@ -2,6 +2,7 @@ package main.se.kth.iv1350.pos.model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import main.se.kth.iv1350.pos.DTO.ItemDTO;
 import main.se.kth.iv1350.pos.DTO.SaleStateDTO;
 import main.se.kth.iv1350.pos.integration.DBHandler;
@@ -13,7 +14,7 @@ import main.se.kth.iv1350.pos.integration.DBHandler;
 public class Sale {
     // private SaleStateDTO saleState;
     private DBHandler db;
-
+    private List<TotalRevenueObserver> observers = new ArrayList<TotalRevenueObserver>();     
     private ArrayList<Item> shoppingCart;
     private double runningTotal;
     private double totalVAT;
@@ -107,7 +108,7 @@ public class Sale {
         updateTotal();
         this.receivedPayment = amount;
         calculateChange();
-        // this.change = this.amountToPay - amount;
+        this.notifyObservers();
         this.timeOfSale = java.time.LocalDateTime.now();
         return new SaleStateDTO(shoppingListToString(),
                                 this.runningTotal,
@@ -149,5 +150,22 @@ public class Sale {
             }
         }
         return -1;
+    }
+
+    /**
+     * Notifies observers about change of some state.
+     * @param newBalance
+     */
+    private void notifyObservers() {
+        for (TotalRevenueObserver obs : this.observers)
+                obs.logRevenue(this.amountToPay);
+        }
+
+    /**
+     * Adds an total revenue observer to an array list in the class Register
+     * @param obs the total revenue observer in question
+     */
+    public void addObserver(TotalRevenueObserver obs){
+            observers.add(obs);
     }
 }

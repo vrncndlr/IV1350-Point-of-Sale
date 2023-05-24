@@ -3,12 +3,11 @@ package main.se.kth.iv1350.pos.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
-
 import main.se.kth.iv1350.pos.integration.DBHandler;
 import main.se.kth.iv1350.pos.integration.IOHandler;
 import main.se.kth.iv1350.pos.DTO.SaleStateDTO;
 import main.se.kth.iv1350.pos.DTO.ItemDTO;
+import main.se.kth.iv1350.pos.model.Receipt;
 import main.se.kth.iv1350.pos.model.Register;
 import main.se.kth.iv1350.pos.model.Sale;
 import main.se.kth.iv1350.pos.model.TotalRevenueObserver;
@@ -39,6 +38,8 @@ public class Controller {
      * Starts a new <code>Sale</code>.
      */
     public void startNewSale() {
+        for(TotalRevenueObserver obs : revenueObservers)
+            register.addObserver(obs);
         sale = new Sale();
         register.addObserver(null);  
     }
@@ -79,9 +80,9 @@ public class Controller {
      * @param payment from customer
      */
     public double getChange(int payment){
-        for(TotalRevenueObserver obs : revenueObservers)
-            register.addObserver(obs);
         SaleStateDTO currentSale = sale.registerPayment(payment);
+        Receipt receipt = new Receipt(currentSale);
+        ioHandler.printReceipt(receipt);
         ioHandler.updateSaleLog(currentSale);
         dbHandler.updateExternalSystems(currentSale);
         this.sale.calculateChange();
@@ -92,7 +93,7 @@ public class Controller {
      * Calling the function to add a new total revenue observer to the register class
      * @param obs the revenue observer
      */
-    public void addTotalRevenueObserver(TotalRevenueObserver obs){
+    public void addObserver(TotalRevenueObserver obs){
         register.addObserver(obs);
     }
 }
