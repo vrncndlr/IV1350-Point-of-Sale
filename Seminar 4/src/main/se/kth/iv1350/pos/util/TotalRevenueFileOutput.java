@@ -6,11 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-/*
- * 2023-05-23T14:11:09.333840 Total revenue: 163.09
- * 2023-05-23T14:13:56.025975 Total revenue: 326.18
- */
-
 public class TotalRevenueFileOutput implements TotalRevenueObserver{
     private PrintWriter logger;
     private double totalRevenue = 0;

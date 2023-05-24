@@ -1,6 +1,5 @@
 package main.se.kth.iv1350.pos.startup;
 
-// import main.se.kth.iv1350.pos.model.Register;
 import main.se.kth.iv1350.pos.integration.DBHandler;
 import main.se.kth.iv1350.pos.integration.IOHandler;
 import main.se.kth.iv1350.pos.controller.Controller;
