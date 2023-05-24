@@ -1,9 +1,7 @@
 package main.se.kth.iv1350.pos.DTO;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
-import main.se.kth.iv1350.pos.model.Item;
 /**
  * All final info regarding the proof of concluded <code>Sale</code>.
  */

@@ -1,7 +1,6 @@
 package main.se.kth.iv1350.pos.integration;
 
 import java.util.ArrayList;
-import main.se.kth.iv1350.pos.DTO.PaymentInfoDTO;
 import main.se.kth.iv1350.pos.DTO.SaleStateDTO;
 
 /**

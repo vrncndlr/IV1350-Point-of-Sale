@@ -1,8 +1,7 @@
 package main.se.kth.iv1350.pos.view;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
-
+import java.io.IOException;
 import main.se.kth.iv1350.pos.DTO.SaleStateDTO;
 import main.se.kth.iv1350.pos.controller.Controller;
 import main.se.kth.iv1350.pos.integration.OperationFailedException;
@@ -30,7 +29,12 @@ public class View {
         this.contr = contr;
         totalRevenueView = new TotalRevenueView();
         contr.addObserver(totalRevenueView);
-        totalRevenueOutput = new TotalRevenueFileOutput() {};
+        try {
+            totalRevenueOutput = new TotalRevenueFileOutput();
+            this.contr.addObserver(totalRevenueOutput);
+        } catch (IOException ioe) {
+            writeToDevsAndUsers("Failed to open file to update revenue.", ioe);
+        }
         contr.addObserver(totalRevenueOutput);
         try {
             logger = new Logger();

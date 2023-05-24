@@ -6,18 +6,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public abstract class TotalRevenueFileOutput implements TotalRevenueObserver{
+/*
+ * 2023-05-23T14:11:09.333840 Total revenue: 163.09
+ * 2023-05-23T14:13:56.025975 Total revenue: 326.18
+ */
+
+public class TotalRevenueFileOutput implements TotalRevenueObserver{
     private PrintWriter logger;
     private double totalRevenue = 0;
     /**
      * Creates a new instance that creates a text file and overwrites old ones.
      */
-    public TotalRevenueFileOutput() {
-        try {
-            logger = new PrintWriter(new FileWriter("src/main/se/kth/iv1350/pos/totalRevenue.txt", true));
-        } catch (IOException e) {
-            System.out.println("Could not write to file.");
-        }
+    public TotalRevenueFileOutput() throws IOException {
+        logger = new PrintWriter(new FileWriter("src/main/se/kth/iv1350/pos/totalRevenue.txt", true));
     }
     /**
      * Notify observers about change in total revenue and log a specified message
@@ -33,7 +34,7 @@ public abstract class TotalRevenueFileOutput implements TotalRevenueObserver{
         logger.println(msg);
     }
     /**
-     * Adds revenue to the total revenue and shows it.
+     * Logs the specified total revenue on a text file.
      * @param newRevenue the newest revenue
      */
     private void addRevenue(double newRevenue) {
@@ -44,16 +45,5 @@ public abstract class TotalRevenueFileOutput implements TotalRevenueObserver{
             System.out.println("Couldn't write total revenue to file.");
         }
     }
-    // /**
-    //  * Logs the specified total revenue on a text file before closing stream to file
-    //  * @param profit the total revenue to be logged
-    //  */
-    // public void logRevenue(double profit){
-    //     StringBuilder msg = new StringBuilder();
-    //     msg.append(LocalDateTime.now() + " ");
-    //     msg.append("Total revenue: ");
-    //     msg.append(profit);
-    //     msg.append("\n");
-    //     logger.println(msg);
-    // }
+
 }

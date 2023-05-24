@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import main.se.kth.iv1350.pos.DTO.ItemDTO;
 import main.se.kth.iv1350.pos.DTO.SaleStateDTO;
-import main.se.kth.iv1350.pos.model.Item;
 
 /**
  * A placeholder class representing an external inventory database.

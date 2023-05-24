@@ -1,6 +1,5 @@
 package main.se.kth.iv1350.pos.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import main.se.kth.iv1350.pos.integration.DBHandler;
